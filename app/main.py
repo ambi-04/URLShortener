@@ -3,7 +3,7 @@ from fastapi import FastAPI, HTTPException, Request
 from redis.exceptions import RedisError
 from sqlalchemy.exc import SQLAlchemyError
 from app.routers import url
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
@@ -13,6 +13,8 @@ from app.database import async_engine, Base
 from app.models import * # Makes sure all models are loaded
 import redis.asyncio as redis
 # ------------------------------------
+
+
 
 
 # Async function to create tables
@@ -110,4 +112,4 @@ app.include_router(url.router)
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the ambiiURL"}
+    return "welcome to ambiiURL"

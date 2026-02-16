@@ -8,7 +8,7 @@ from app.repository import get_cached_url,get_longurl_db,get_unique_id,create_ur
 import os
 
 load_dotenv()
-domain_url = os.getenv("DOMAIN_URL")
+base_url = os.getenv("API_BASE_URL")
 def encode_base62(num:int):
     base62digits = "0123456789ABCDEFGHIJabcdefghijklmnopqrstuvwxyz"
     encoded_string_list = []
@@ -24,17 +24,17 @@ def encode_base62(num:int):
 async def shorten_service(longurl:HttpUrl, db:AsyncSession, counter_redis:Redis):
     try:
         id_generated = await (get_unique_id(counter_redis))
-        shorturl = domain_url + "/" + encode_base62(id_generated)
-        create_url(str(longurl),shorturl,db)
+        generated_url = encode_base62(id_generated)
+        create_url(str(longurl),generated_url,db)
         await db.commit()
     except Exception as e:
         print(e)
         await db.rollback()
         raise
+    shorturl = base_url + "/" + generated_url
     return shorturl
 
 async def redirection_service(shorturl:str, db: AsyncSession, cache_redis:Redis):
-    shorturl = domain_url+"/"+shorturl
     try:
         longurl = await get_cached_url(shorturl,cache_redis)
         if longurl is None:
