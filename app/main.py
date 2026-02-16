@@ -1,6 +1,8 @@
 
 from fastapi import FastAPI, HTTPException, Request
-from .routers import admin_user_management,admin,auth,admin_ef_search,standards_basic_advanced_users,ef_search_basic_advanced_user_API,ef_versions_basic_advanced_users,admin_update_ef,admin_get_ef_logs
+from redis.exceptions import RedisError
+from sqlalchemy.exc import SQLAlchemyError
+from app.routers import url
 from fastapi.responses import JSONResponse
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -50,7 +52,7 @@ app = FastAPI(title="EF Search API", lifespan=lifespan)
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"], # Your Next.js app's URL
+    allow_origins=["*"], # Your Next.js app's URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -76,17 +78,34 @@ async def http_exception_handler(request: Request, exc: HTTPException):
             "path" : str(request.url)
         }
     )
+@app.exception_handler(RedisError)
+async def redis_exception_handler( request:Request,exc: RedisError):
+    message = "Redis connection Failed"
+    return JSONResponse(
+        status_code=503,
+        content=
+        {
+            "success": False,
+            "message": message,
+
+            "path": str(request.url)
+        }
+    )
+@app.exception_handler(SQLAlchemyError)
+async def redis_exception_handler( request:Request,exc: SQLAlchemyError):
+    message = "Database Error Occured"
+    return JSONResponse(
+        status_code=500,
+        content=
+        {
+            "success": False,
+            "message": message,
+
+            "path": str(request.url)
+        }
+    )
 # Include your routers
-app.include_router(auth.router)
-app.include_router(admin_get_ef_logs.router)
-app.include_router(admin_user_management.router)
-app.include_router(admin_update_ef.router)
-app.include_router(admin.router)
-app.include_router(admin_ef_search.router)
-app.include_router(admin_add_ef.router)
-app.include_router(standards_basic_advanced_users.router)
-app.include_router(ef_search_basic_advanced_user_API.router)
-app.include_router(ef_versions_basic_advanced_users.router)
+app.include_router(url.router)
 
 
 @app.get("/")

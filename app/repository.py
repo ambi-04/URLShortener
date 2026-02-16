@@ -1,3 +1,4 @@
+from pydantic import HttpUrl
 from sqlalchemy import select
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
