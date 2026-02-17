@@ -33,7 +33,7 @@ const form = document.getElementById('shorten-form');
       submitBtn.textContent = 'Generating...';
 
       try {
-        const response = await fetch('http://localhost:8000/shorten', {
+        const response = await fetch('http://192.168.29.77:8000/shorten', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ longurl })
@@ -56,15 +56,18 @@ const form = document.getElementById('shorten-form');
       }
     });
 
-    copyBtn.addEventListener('click', async () => {
-      if (!generatedShortUrl) return;
-      try {
-        await navigator.clipboard.writeText(generatedShortUrl);
-        copyBtn.textContent = 'Copied!';
-        setTimeout(() => {
-          copyBtn.textContent = 'Copy short URL';
-        }, 1200);
-      } catch (_) {
-        showError('Clipboard permission denied. Copy manually from the result.');
-      }
-    });
+  copyBtn.addEventListener('click', async () => {
+  if (!generatedShortUrl) return;
+
+  try {
+    await navigator.clipboard.writeText(generatedShortUrl);
+    copyBtn.textContent = 'Copied!';
+    setTimeout(() => {
+      copyBtn.textContent = 'Copy short URL';
+    }, 1200);
+  } catch (_) {
+    // Don't hide result
+    errorBox.textContent = 'Clipboard permission denied. Please copy manually above.';
+    errorBox.style.display = 'block';
+  }
+});
