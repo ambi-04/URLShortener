@@ -1,0 +1,58 @@
+rough_notebook.odt
+insert_csv_to_pg.sh
+assignment5_ef_versioning_phase2_insert_data.sql
+*.csv
+
+# Virtual Environment
+venv/
+.venv/
+venv2/
+myenv/
+#test files
+Test/
+
+app/routers/assessments.py
+app/crud.py
+#redis backup files
+*.rdb
+*.aof
+*.aof.manifest
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Instance folder
+instance/
+.webassets-cache
+
+# pyenv
+.python-version
+
+# dotenv
+.env
+.env.*
+
+# IDE-specific
+.idea/
+.vscode/

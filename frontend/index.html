@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ambiiURL</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <div class="brand-row">
+      <div class="logo" title="Add your own logo image">
+        <img src="/static/logo.jpeg" alt="Your logo" onerror="this.replaceWith(document.createTextNode('logo'))" />
+      </div>
+      <a class="github-link" href="https://github.com/ambi-04/URLShortener" target="_blank" rel="noreferrer" aria-label="GitHub repository link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5C5.65.5.5 5.66.5 12.03c0 5.1 3.29 9.42 7.85 10.95.57.1.78-.25.78-.55 0-.27-.01-.98-.01-1.92-3.19.7-3.87-1.54-3.87-1.54-.52-1.34-1.28-1.69-1.28-1.69-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2 1.03 1.78 2.7 1.27 3.35.98.1-.75.4-1.27.72-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.45.11-3.02 0 0 .97-.31 3.18 1.18a10.9 10.9 0 0 1 5.8 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.57.23 2.73.11 3.02.74.81 1.19 1.84 1.19 3.1 0 4.43-2.68 5.4-5.24 5.69.41.36.78 1.08.78 2.18 0 1.58-.01 2.85-.01 3.24 0 .3.2.66.79.55A11.55 11.55 0 0 0 23.5 12C23.5 5.66 18.35.5 12 .5Z"/>
+        </svg>
+      </a>
+    </div>
+
+    <h1>Shorten URL</h1>
+    <p>Paste a long URL and generate a shorter link instantly.</p>
+
+    <form id="shorten-form">
+      <label for="longurl">Long URL</label>
+      <input id="longurl" type="url" placeholder="https://example.com/some/long/path" required />
+      <div class="actions">
+        <button id="submit-btn" type="submit">Generate short URL</button>
+        <button id="copy-btn" class="secondary" type="button" disabled>Copy short URL</button>
+      </div>
+    </form>
+
+    <div id="result" class="result" role="status"></div>
+    <div id="error" class="error" role="alert"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
