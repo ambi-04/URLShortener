@@ -211,8 +211,3 @@ curl -i http://localhost:8000/00000ab
 - **Frontend can’t shorten URLs**: update the hardcoded API URL in `frontend/script.js`.
 - **Dependency install issues**: simplify `requirements.txt` for your OS/environment.
 
----
-
-## License
-
-No license file is currently included in this repository. Add one if you plan to distribute it publicly.
